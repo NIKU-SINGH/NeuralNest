@@ -4,9 +4,9 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Button } from "@/components/ui/button"
 import { Routes, Route } from "react-router-dom"
-import Sidebar from "@/components/sidebar"
-import ChatBox from "@/components/chatBox"
 import Landing from './components/landing'
+import Chat from './pages/Chat'
+
 function App() {
 
   return (
@@ -14,8 +14,8 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="about" element={<Sidebar />} />
-          <Route path="chat" element={<ChatBox />} />
+          {/* <Route path="about" element={<Sidebar />} /> */}
+          <Route path="chat" element={<Chat />} />
         </Routes>
       </div>
     </>
