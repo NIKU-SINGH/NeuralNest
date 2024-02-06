@@ -6,7 +6,7 @@ import { Send } from "lucide-react";
 import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-// import logo1 from "/logo1.png";
+import llmLogo from "/llmLogo.png";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface responseSchema {
@@ -16,6 +16,7 @@ interface responseSchema {
 }
 
 function ChatBox() {
+
     const [question, setQuestion] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
     const [responses, setResponses] = useState<responseSchema[]>([]);
@@ -29,10 +30,10 @@ function ChatBox() {
         setLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:8000", {
+            const res = await axios.post("http://localhost:8000/api/v1/query", {
                 query: question,
             });
-            const answer: string = response.data;
+            const answer: string = res.data.response.text;
             setResponses((prevState: responseSchema[]) => {
                 return prevState.map((entry) =>
                     entry.question === question ? { ...entry, answer } : entry
@@ -40,10 +41,6 @@ function ChatBox() {
             });
         } catch (e: unknown) {
             console.log(e);
-            // setResult({ error: "There was an error processing the request." });
-            // setResponses((prevState: responseSchema[]) => {
-            //   return [...prevState, {error: 'There was an error processing the request' }];
-            // });
             setResponses((prevState: responseSchema[]) => {
                 return prevState.map((entry) =>
                     entry.question === question
@@ -56,6 +53,8 @@ function ChatBox() {
         setLoading(false);
     };
     console.log(responses);
+
+
 
     // useEffect(() => {
     // },[currentResponse])
@@ -75,7 +74,7 @@ function ChatBox() {
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 {/* Question Box */}
-                                <div className="  bg-white rounded-md border p-4 w-full">
+                                <div className="  bg-white rounded-md border p-4 w-full text-left">
                                     {data.question}
                                 </div>
                             </div>
@@ -83,11 +82,11 @@ function ChatBox() {
                             <div className="mt-2 flex space-x-2">
                                 {/* Avatar */}
                                 <Avatar>
-                                    <AvatarImage src={logo1} />
+                                    <AvatarImage src={llmLogo} />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 {/* Messages */}
-                                <div className="  bg-white rounded-md border p-4 w-full">
+                                <div className="  bg-white rounded-md border p-4 w-full text-left">
                                     {!data.answer ? (
                                         <div>
                                             <Skeleton className=" h-[20px] rounded-full m-1" />
