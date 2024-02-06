@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fastapi import Request,Query
+from fastapi import Request
 from fastapi import FastAPI, File, UploadFile
 from src.llm import ask_llm
 from src.llm import ask_llm, create_chunks, create_vectorstore, load_pdf
@@ -9,7 +9,11 @@ import hashlib
 import shutil
 from datetime import datetime
 import json
+from pydantic import BaseModel
 
+class Query(BaseModel):
+    query: str
+    
 router = APIRouter()
 
 @router.post("/upload")
@@ -38,12 +42,13 @@ async def create_upload_file(file: UploadFile):
     db = create_vectorstore(splits, embeddings)
     
     return {"message": "PDF file uploaded successfully!", "filename": file.filename}
+
 @router.get("/upload")
 def index():
     return {"message": "Upload successfully!"}  
 
 @router.post("/query")
-async def handle_query(query: str = Query(..., description="The user's query")):
+async def handle_query(query: Query):
     response = query# Replace with your response generation logic
     
     # Ask the llm a question

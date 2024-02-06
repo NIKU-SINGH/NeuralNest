@@ -25,7 +25,7 @@ HUGGINGFACEHUB_API_TOKEN = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
 
 
 # Reading the PDF
-loader = PyMuPDFLoader("../uploaded_files/13ab04e.pdf")
+loader = PyMuPDFLoader("../uploaded_files/eedb59e.pdf")
 data = loader.load()
 
 # Splitting the text
@@ -55,22 +55,23 @@ db = Chroma.from_documents(
     persist_directory="db", 
     collection_name="personal_data" 
 )
+retriever = db.as_retriever(search_kwargs={"k":4})
 db.persist()
 
 # get an existing collection
 collection = client.get_collection("personal_data")
 
 # print("client",collection)
-retriever = db.as_retriever(search_kwargs={"k":4})
 
 callbacks = [StreamingStdOutCallbackHandler()]
 
-llm = GPT4All( model="../llm_models/gpt4all-falcon-newbpe-q4_0.gguf",
-                      max_tokens=1000, 
-                    #   backend='gptj', 
-                      n_batch=8, 
-                      callbacks=callbacks,
-                      verbose=True)
+# llm = GPT4All( model="../llm_models/gpt4all-falcon-newbpe-q4_0.gguf",
+#                       max_tokens=1000, 
+#                     #   backend='gptj', 
+#                       n_batch=8, 
+#                       callbacks=callbacks,
+#                       verbose=True)
+
 repo_id = "google/flan-t5-xxl"
 question = "Who is Niku SIngh from India? "
 
@@ -80,23 +81,23 @@ Answer: Let's think step by step."""
 
 prompt = PromptTemplate(template=template, input_variables=["question"])
 
-# llm = HuggingFaceHub(
-#     repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
-# )
+llm = HuggingFaceHub(
+    repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
+)
 
-# qa = RetrievalQA.from_chain_type(llm=llm, 
-#                                  chain_type="stuff", 
-#                                  retriever=retriever, 
-#                                  return_source_documents=True,
-#                                  verbose=True,
-#                                  )
+qa = RetrievalQA.from_chain_type(llm=llm, 
+                                 chain_type="stuff", 
+                                 retriever=retriever, 
+                                 return_source_documents=True,
+                                 verbose=True,
+                                 )
 
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+# llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 
 print("Embeddings",embeddings)
-print(llm_chain.invoke(question))
-# print("Final anser",qa("List Niku Work exp?"))
+# print(llm_chain.invoke(question))
+print("Final anser",qa("List Nikus work exp?"))
 
 # print("collection", json.dumps(results,indent=2, sort_keys=True))
 # loader = PyPDFLoader("example_data/layout-parser-paper.pdf")

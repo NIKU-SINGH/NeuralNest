@@ -45,13 +45,13 @@ repo_id = "google/flan-t5-xxl"
 retriever = ""
 
 # llm = HuggingFaceHub(
-#     repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
+#     repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 300}
 # )
 llm = GPT4All(model=MODEL_PATH,
                       max_tokens=1000, 
                       backend='gptj', 
                       n_batch=8, 
-                      verbose=False)
+                      verbose=True)
 
 # Getting the files from the storage
 def load_pdf(file_path):
@@ -85,8 +85,8 @@ def create_vectorstore(splits, embeddings):
         persist_directory=PERSIST_DIRECTORY, 
         collection_name=COLLECTION_NAME 
     )
-    db.persist()
     retriever = db.as_retriever(search_kwargs={"k":4})
+    db.persist()
     return db
 
 async def ask_llm(query):
@@ -110,4 +110,8 @@ async def ask_llm(query):
                                             verbose=True,
                                             )
         response = qa(query)
+        
+        # llm_chain = LLMChain(prompt=prompt, llm=llm)
+        # response = llm_chain.invoke(query)
+        print("response received from LLM: ", response)
         return response
