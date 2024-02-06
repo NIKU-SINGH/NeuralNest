@@ -35,6 +35,10 @@ ENV/
 
 # Database
 db.sqlite3
+db/
+llm_models/
+data_store/
+uploaded_files/
 
 # PyCharm
 .idea/
