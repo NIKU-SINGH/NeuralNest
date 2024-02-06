@@ -60,83 +60,79 @@ function ChatBox() {
     // useEffect(() => {
     // },[currentResponse])
     return (
-        <div className="w-full flex flex-col max-h-screen overflow-hidden">
+        <div className="w-full flex flex-col">
             <Navbar />
-            <div className="flex px-16 h-[95vh]">
-                {/* Chat */}
-                <div className="w-full">
-                    <ScrollArea className="h-[600px] rounded-md  p-4 ">
-                        {responses?.map((data, id) => (
-                            <div key={id} className="mt-4">
+            {/* Chat */}
+            <div className="w-full">
+                <ScrollArea className="h-[80vh] rounded-md  p-4 bg-gray-200 ">
+                    {responses?.map((data, id) => (
+                        <div key={id} className="mt-4">
+                            {/* Question Box */}
+                            <div className="mt-2 flex space-x-2">
+                                {/* User Avatar */}
+                                <Avatar>
+                                    <AvatarImage src="https://github.com/shadcn.png" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
                                 {/* Question Box */}
-                                <div className="mt-2 flex space-x-2">
-                                    {/* User Avatar */}
-                                    <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                    {/* Question Box */}
-                                    <div className="  bg-white rounded-md border p-4 w-full">
-                                        {data.question}
-                                    </div>
-                                </div>
-                                {/* //Answer Box */}
-                                <div className="mt-2 flex space-x-2">
-                                    {/* Avatar */}
-                                    <Avatar>
-                                        <AvatarImage src={logo1} />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                    {/* Messages */}
-                                    <div className="  bg-white rounded-md border p-4 w-full">
-                                        {!data.answer ? (
-                                            <div>
-                                                <Skeleton className=" h-[20px] rounded-full m-1" />
-                                                <Skeleton className=" h-[20px] rounded-full m-1" />
-                                                <Skeleton className=" h-[20px] rounded-full m-1" />
-                                            </div>
-                                        ) : (
-                                            data.answer
-                                        )}
-                                    </div>
+                                <div className="  bg-white rounded-md border p-4 w-full">
+                                    {data.question}
                                 </div>
                             </div>
-                        ))}
-                    </ScrollArea>
-                </div>
-            </div>
-
-            {/* Input */}
-            <div className="px-2 lg:px-10 py-6 absolute bottom-0 lg:w-[80vw] flex items-center justify-center">
-                <div className="px-2 lg:px-10   lg:w-full flex items-center justify-center">
-                    {/* <h1>Thissisisisi</h1> */}
-                    <div className="w-full">
-                        {/* <Input /> */}
-
-                        <div className="flex justify-center items-center space-x-2">
-                            <Input
-                                className="w-4/5 p-6"
-                                type="text"
-                                value={question}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setQuestion(e.target.value)
-                                }
-                                placeholder="Ask your Question here..."
-                            />
-                            <Button
-                                className="w-20 p-6 bg-blue-300"
-                                type="submit"
-                                onClick={handleSubmit}
-                                onKeyPress={(e) => {
-                                    if (e.key === "Enter") console.log("Bhaina enter");
-                                }}
-                            >
-                                <Send />
-                            </Button>
+                            {/* //Answer Box */}
+                            <div className="mt-2 flex space-x-2">
+                                {/* Avatar */}
+                                <Avatar>
+                                    <AvatarImage src={logo1} />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
+                                {/* Messages */}
+                                <div className="  bg-white rounded-md border p-4 w-full">
+                                    {!data.answer ? (
+                                        <div>
+                                            <Skeleton className=" h-[20px] rounded-full m-1" />
+                                            <Skeleton className=" h-[20px] rounded-full m-1" />
+                                            <Skeleton className=" h-[20px] rounded-full m-1" />
+                                        </div>
+                                    ) : (
+                                        data.answer
+                                    )}
+                                </div>
+                            </div>
                         </div>
+                    ))}
+                </ScrollArea>
+            </div>
+            {/* Input */}
+            <div className="px-2 lg:px-10 py-2 flex items-center justify-center">
+                <div className="w-full">
+                    {/* <Input /> */}
+
+                    <div className="flex justify-center items-center space-x-2">
+                        <Input
+                            className="w-4/5 p-6"
+                            type="text"
+                            value={question}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setQuestion(e.target.value)
+                            }
+                            placeholder="Ask your Question here..."
+                        />
+                        <Button
+                            className="w-20 p-6 bg-blue-300"
+                            type="submit"
+                            onClick={handleSubmit}
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") console.log("Bhaina enter");
+                            }}
+                        >
+                            <Send />
+                        </Button>
                     </div>
                 </div>
+
             </div>
+
         </div>
     );
 }

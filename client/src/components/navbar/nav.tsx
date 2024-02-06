@@ -1,16 +1,16 @@
 import {
-    Menubar,
-    MenubarMenu,
-    MenubarTrigger,
-  } from "@/components/ui/menubar";
-  
-  export default function nav() {
-    return (
-      <div className="">
-        <Menubar className="h-20 bg-blue-300 border-none rounded-none">
-          <MenubarMenu>
-            <MenubarTrigger className=""></MenubarTrigger>
-            {/* <MenubarContent>
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+
+export default function nav() {
+  return (
+    <div className="">
+      <Menubar className="h-16 bg-blue-300 border-none rounded-none">
+        <MenubarMenu>
+          <MenubarTrigger className=""></MenubarTrigger>
+          {/* <MenubarContent>
               <MenubarItem>
                 New Tab <MenubarShortcut>⌘T</MenubarShortcut>
               </MenubarItem>
@@ -20,8 +20,8 @@ import {
               <MenubarSeparator />
               <MenubarItem>Print</MenubarItem>
             </MenubarContent> */}
-          </MenubarMenu>
-        </Menubar>
-      </div>
-    );
-  }
+        </MenubarMenu>
+      </Menubar>
+    </div>
+  );
+}
