@@ -65,12 +65,12 @@ collection = client.get_collection("personal_data")
 
 callbacks = [StreamingStdOutCallbackHandler()]
 
-# llm = GPT4All( model="../llm_models/gpt4all-falcon-newbpe-q4_0.gguf",
-#                       max_tokens=1000, 
-#                     #   backend='gptj', 
-#                       n_batch=8, 
-#                       callbacks=callbacks,
-#                       verbose=True)
+llm = GPT4All( model="../llm_models/gpt4all-falcon-newbpe-q4_0.gguf",
+                      max_tokens=1000, 
+                    #   backend='gptj', 
+                      n_batch=8, 
+                      callbacks=callbacks,
+                      verbose=True)
 
 repo_id = "google/flan-t5-xxl"
 question = "Who is Niku SIngh from India? "
@@ -81,9 +81,9 @@ Answer: Let's think step by step."""
 
 prompt = PromptTemplate(template=template, input_variables=["question"])
 
-llm = HuggingFaceHub(
-    repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
-)
+# llm = HuggingFaceHub(
+#     repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
+# )
 
 qa = RetrievalQA.from_chain_type(llm=llm, 
                                  chain_type="stuff", 
