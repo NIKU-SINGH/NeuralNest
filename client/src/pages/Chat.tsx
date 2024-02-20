@@ -1,24 +1,17 @@
-import React from 'react';
-import { Sidebar } from '@/components/sidebar';
-import ChatBox from '@/components/chatBox';
+import ChatBox from "@/components/chat";
+import { Sidebar } from "@/components/sidebar";
 
 function Chat() {
     return (
-        <div className='flex'>
-
-            {/* Sidebar */}
-            <div className='w-64 bg-gray-200 p-2 shadow-lg'>
-                {/* Sidebar content goes here */}
+        <div className='flex w-full'>
+            {/* <NavbarDemo /> */}
+            <div className={`flex px-4 w-full mt-2`}>
                 <Sidebar />
+                <div className='hidden md:inline-block w-full'>
+                    <ChatBox />
+                </div>
             </div>
-
-            {/* ChatBox */}
-            <div className='flex-1 bg-gray-200 p-2'>
-                <ChatBox />
-            </div>
-
         </div>
-    );
+    )
 }
-
-export default Chat;
+export default Chat

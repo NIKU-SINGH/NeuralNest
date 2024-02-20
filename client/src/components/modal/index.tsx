@@ -17,11 +17,10 @@ export default function Modal() {
         <Dialog>
             <DialogTrigger asChild>
                 {/* <Button variant="outline">Edit Profile</Button> */}
-                <Button variant="secondary" className="w-full justify-start">
+                <Button variant="ghost" className="border-2 hover:text-white text-gray-600 border-gray-800 hover:bg-blue-500 rounded-xl py-6 w-full justify-start flex items-center gap-2">
                     <FileUp className="mr-2 h-4 w-4" />
                     Upload PDFs
                 </Button>
-
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
